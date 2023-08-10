@@ -1,0 +1,33 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+nav {
+    background-color: rgb(56, 48, 48);
+}
+
+nav>ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+nav>ul>li {
+    padding: 20px 0;
+}
+
+nav>ul>li>a {
+    padding: 20px;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.main-head {
+    text-align: center;
+    margin: 15px 0;
+}
