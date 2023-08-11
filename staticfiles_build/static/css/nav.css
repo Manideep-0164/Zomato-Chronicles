@@ -1,0 +1,43 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+}
+
+nav {
+    background-color: #001f3f;
+    height: 79px;
+    color: white;
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    margin: 0 15px;
+    padding: 20px 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    padding: 20px;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #39cccc;
+    /* Teal */
+    cursor: pointer;
+}

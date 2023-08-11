@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update - dish</title>
+    <link rel="stylesheet" href="{% static 'css/nav.css' %}">
+    <link rel="stylesheet" href="{% static 'css/update_dish.css' %}">
+
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'menu' %}">Menu</a></li>
+            <li><a href="{% url 'add_dish' %}">Add Dish</a></li>
+            <li><a href="{% url 'process_order' %}">Process Order</a></li>
+            <li><a href="{% url 'orders_list' %}">Orders List</a></li>
+        </ul>
+    </nav>
+    <div class="dish-form">
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="name" value="{{ dish.name }}" placeholder="Name">
+            <input type="number" name="price" value="{{ dish.price }}" placeholder="Price">
+            <input type="text" name="image" value="{{ dish.image }}" placeholder="image_url">
+            <div class="checkbox-container">
+                <input type="checkbox" {% if dish.availability %}checked{% endif %} name="availability">
+                <label for="availability">Available</label>
+            </div>
+            <input type="submit" value="Update dish">
+        </form>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+.main-content {
+    max-width: 800px;
+    padding: 45px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.intro {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.intro h2 {
+    font-size: 1.8em;
+    color: #d9534f;
+    /* Red */
+    margin-bottom: 10px;
+}
+
+.intro p {
+    font-size: 1.1em;
+    color: #333;
+    /* Black */
+    line-height: 1.5;
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+.main-head {
+    text-align: center;
+}
+
+.container {
+    height: calc(100vh - 79px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

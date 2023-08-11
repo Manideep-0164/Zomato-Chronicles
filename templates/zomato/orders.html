@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders - Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/nav.css' %}">
+    <link rel="stylesheet" href="{% static 'css/orders.css' %}">
+
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'menu' %}">Menu</a></li>
+            <li><a href="{% url 'add_dish' %}">Add Dish</a></li>
+            <li><a href="{% url 'process_order' %}">Process Order</a></li>
+            <li><a href="{% url 'orders_list' %}">Orders List</a></li>
+        </ul>
+    </nav>
+    <div class="order-cont">
+        <table>
+            <thead>
+                <tr>
+                    <th>Customer Name</th>
+                    <th>Order IDs</th>
+                    <th>Status</th>
+                    <th>Total Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.customer_name }}</td>
+                    <td>
+                        {% for id in order.dishes %}
+                        {{ id.id }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>{{ order.status }}</td>
+                    <td>Rs.{{ order.total_amount }}/-</td>
+                    <td>
+                        <a href="{% url 'update_status' order.id %}">Update Status</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Process order</title>
+    <link rel="stylesheet" href="{% static 'css/nav.css' %}">
+    <link rel="stylesheet" href="{% static 'css/process_order.css' %}">
+
+
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'menu' %}">Menu</a></li>
+            <li><a href="{% url 'add_dish' %}">Add Dish</a></li>
+            <li><a href="{% url 'process_order' %}">Process Order</a></li>
+            <li><a href="{% url 'orders_list' %}">Orders List</a></li>
+        </ul>
+    </nav>
+    <div class="dish-form">
+        <form method="post">
+            {% csrf_token %}
+            <label for="name">Customer Name</label>
+            <input type="text" name="name" id="name" placeholder="Customer Name" required>
+
+            <label for="ids">Dish IDs</label>
+            <input type="text" name="ids" id="ids" placeholder="Enter dish IDs (e.g., 1,2,3)" pattern="^\d+(,\d+)*$"
+                title="Please enter numbers separated by commas" required>
+
+            <button type="submit">Order</button>
+        </form>
+    </div>
+
+</body>
+<script>
+    const processOrderURL = "{% url 'process_order' %}";
+    const ordersListURL = "{% url 'orders_list' %}";
+    const form = document.querySelector("form")
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        manageOrder(e)
+
+    })
+
+    function manageOrder(e) {
+        const selectedIds = form.ids.value.trim().split(",").map(Number)
+        const availableMenu = JSON.parse("{{ menu | escapejs }}")
+
+        for (const id of selectedIds) {
+            const available_dish = availableMenu.find(dish => dish["id"] === parseInt(id))
+            if (!available_dish || !available_dish["availability"]) {
+                const message = !available_dish ? "found" : "available"
+                return alert(`A dish with id:${id} not ${message}`)
+            }
+        }
+
+        const new_order = new FormData(e.target)
+        const csrfTKN = new_order.get("csrfmiddlewaretoken")
+
+        fetch(processOrderURL, {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": csrfTKN
+            },
+            body: new_order
+        })
+            .then(res => res.text())
+            .then(data => {
+                window.location.href = ordersListURL
+            })
+            .catch(err => {
+                console.log("Something went wrong!", err)
+            })
+
+    }
+</script>
+</html>

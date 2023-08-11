@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dish - Form</title>
+    <link rel="stylesheet" href="{% static 'css/nav.css' %}">
+    <link rel="stylesheet" href="{% static 'css/add_dish.css' %}">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'menu' %}">Menu</a></li>
+            <li><a href="{% url 'add_dish' %}">Add Dish</a></li>
+            <li><a href="{% url 'process_order' %}">Process Order</a></li>
+            <li><a href="{% url 'orders_list' %}">Orders List</a></li>
+        </ul>
+    </nav>
+    <div class="dish-form">
+        <form method="post">
+            {% csrf_token %}
+            <label for="name">Dish Name</label>
+            <input type="text" name="name" id="name" placeholder="Name" required>
+
+            <label for="price">Price (Rs.)</label>
+            <input type="number" name="price" id="price" placeholder="Price" required>
+
+            <label for="image">Image URL</label>
+            <input type="text" name="image" id="image" placeholder="Image URL" required>
+
+            <label for="availability">Availability</label>
+            <input type="checkbox" name="availability" id="availability">
+
+            <input type="submit" value="Add Dish">
+        </form>
+    </div>
+
+</body>
+</html>

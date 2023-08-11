@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zomato - Chronicles</title>
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <title>Update - Status</title>
     <link rel="stylesheet" href="{% static 'css/nav.css' %}">
+    <link rel="stylesheet" href="{% static 'css/updatestatus.css' %}">
+
 </head>
 <body>
     <nav>
@@ -18,17 +19,18 @@
             <li><a href="{% url 'orders_list' %}">Orders List</a></li>
         </ul>
     </nav>
-    <div class="container">
-        <div class="main-content">
-            <div class="intro">
-                <h2>Welcome to Zesty Zomato</h2>
-                <p>Discover a world of culinary delights with Zesty Zomato. Browse our mouth-watering menu, place
-                    orders,
-                    and track their status. Experience a seamless and efficient food delivery service like never before.
-                </p>
-            </div>
-            <h1 class="main-head">Explore the Zomato Chronicles</h1>
-        </div>
+    <div class="order-form">
+        <form method="post">
+            {% csrf_token %}
+            <select name="updated_status" id="updated_status">
+                <option value="{{order.status}}">{{order.status}}</option>
+                {% for status in statuses%}
+                <option value="{{status}}">{{status}}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Update dish">
+        </form>
     </div>
+
 </body>
 </html>

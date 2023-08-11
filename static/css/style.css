@@ -1,4 +1,4 @@
-* {
+/* * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
@@ -31,3 +31,26 @@ nav>ul>li>a {
     text-align: center;
     margin: 15px 0;
 }
+
+.dish-cont {
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.dish-cont>.dish-card {
+    width: 23%;
+}
+
+.dish-card>img {
+    width: 100%;
+    height: 80%;
+    object-fit: cover;
+}
+
+#availability-cont {
+    display: flex;
+} */

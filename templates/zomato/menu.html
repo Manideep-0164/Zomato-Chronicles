@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <link rel="stylesheet" href="{% static 'css/nav.css' %}">
+    <link rel="stylesheet" href="{% static 'css/menu.css' %}">
+
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'menu' %}">Menu</a></li>
+            <li><a href="{% url 'add_dish' %}">Add Dish</a></li>
+            <li><a href="{% url 'process_order' %}">Process Order</a></li>
+            <li><a href="{% url 'orders_list' %}">Orders List</a></li>
+        </ul>
+    </nav>
+
+    <div class="dish-cont">
+        {% for dish in menu %}
+        <div class="dish-wrapper {% if not dish.availability %}out-of-stock{% endif %}">
+            <div class="dish-card" data-dish-id="{{ dish.id }}">
+                <img src="{{ dish.image }}" alt="{{ dish.name }}" {% if not dish.availability %}
+                    style="filter: blur(1px); cursor: not-allowed;" {% endif %}>
+                {% if not dish.availability %}
+                <p class="out-of-stock-text">Out of Stock</p>
+                {% endif %}
+                <p class="dish-name">{{ dish.name }}</p>
+                <p class="dish-price">Rs.{{ dish.price }}/-</p>
+                <div class="dish-manage">
+                    <a href="{% url 'update_dish' dish.id %}"><button>Edit</button></a>
+                    <a href="{% url 'delete_dish' dish.id %}"><button>Delete</button></a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+
+</body>
+</html>
