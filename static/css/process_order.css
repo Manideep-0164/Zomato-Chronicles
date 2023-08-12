@@ -1,5 +1,7 @@
+/* Add this updated CSS to your process_order.css stylesheet */
+
 .dish-form {
-    max-width: 400px;
+    max-width: 500px;
     margin: 20px auto;
     padding: 20px;
     background-color: #fff;
@@ -23,17 +25,65 @@
     font-size: 1em;
 }
 
-.dish-form label {
+.dish-form>label {
     font-size: 1.1em;
     color: #333;
-    /* Black */
     margin-bottom: 5px;
     text-align: left;
+    display: block;
 }
 
-.dish-form button[type="submit"] {
+.dish-options {
+    display: flex;
+    flex-direction: column;
+    /* Display cards in a single column */
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 23px;
+    /* Gap between cards */
+}
+
+.dish-card {
+    width: 100%;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+}
+
+.dish-image {
+    width: 100px;
+    /* Increase image size */
+    height: 100px;
+    /* Increase image size */
+    border-radius: 8px;
+    margin-right: 10px;
+    object-fit: cover;
+}
+
+.dish-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 1rem;
+    width: 70%;
+}
+
+.dish-card p {
+    margin: 0;
+}
+
+.dish-checkbox {
+    margin-left: auto;
+    vertical-align: middle;
+    height: 15px;
+}
+
+.order-button {
     background-color: #d9534f;
-    /* Red */
     color: white;
     border: none;
     border-radius: 4px;
@@ -42,10 +92,8 @@
     cursor: pointer;
     transition: background-color 0.3s;
     width: 100%;
-    /* Make the button full-width */
 }
 
-.dish-form button[type="submit"]:hover {
+.order-button:hover {
     background-color: #ff6347;
-    /* Slightly lighter shade of red */
 }

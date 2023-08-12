@@ -74,7 +74,8 @@ def orders_list(request):
 def process_order(request):
     if request.method == "POST":
         customer_name = request.POST.get("name")
-        dish_ids = request.POST.get("ids").split(",")
+        # dish_ids = request.POST.get("ids").split(",")
+        dish_ids = request.POST.getlist("selected_ids")
         dish_ids = [int(id) for id in dish_ids]
         total_amount = 0
         order_dishes = []
@@ -99,7 +100,7 @@ def process_order(request):
         zomatoDB["orders"].append(order)
         # print(zomatoDB["orders"])
         return redirect("orders_list")
-    return render(request, "zomato/process_order.html", {"menu":json.dumps(zomatoDB["menu"])})
+    return render(request, "zomato/process_order.html", {"menu":zomatoDB["menu"]})
 
 def update_status(request, order_id):
     orderIterator = filter(lambda customer: int(customer["id"]) == order_id, zomatoDB["orders"])

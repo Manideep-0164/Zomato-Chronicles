@@ -7,8 +7,6 @@
     <title>Process order</title>
     <link rel="stylesheet" href="{% static 'css/nav.css' %}">
     <link rel="stylesheet" href="{% static 'css/process_order.css' %}">
-
-
 </head>
 <body>
     <nav>
@@ -26,14 +24,25 @@
             <label for="name">Customer Name</label>
             <input type="text" name="name" id="name" placeholder="Customer Name" required>
 
-            <label for="ids">Dish IDs</label>
-            <input type="text" name="ids" id="ids" placeholder="Enter dish IDs (e.g., 1,2,3)" pattern="^\d+(,\d+)*$"
-                title="Please enter numbers separated by commas" required>
+            <label for="ids">Select Available Dishes:</label>
+            <div class="dish-options">
+                {% for dish in menu %}
+                {% if dish.availability %}
+                <label class="dish-card">
+                    <img src="{{ dish.image }}" alt="{{ dish.name }}" class="dish-image">
+                    <div class="dish-details">
+                        <p class="dish-name">{{ dish.name }}</p>
+                        <p class="dish-price">Rs.{{ dish.price }}/-</p>
+                    </div>
+                    <input type="checkbox" name="selected_ids" value="{{ dish.id }}" class="dish-checkbox">
+                </label>
+                {% endif %}
+                {% endfor %}
+            </div>
 
-            <button type="submit">Order</button>
+            <button type="submit" class="order-button">Place Order</button>
         </form>
     </div>
-
 </body>
 <script>
     const processOrderURL = "{% url 'process_order' %}";
@@ -47,19 +56,13 @@
     })
 
     function manageOrder(e) {
-        const selectedIds = form.ids.value.trim().split(",").map(Number)
-        const availableMenu = JSON.parse("{{ menu | escapejs }}")
-
-        for (const id of selectedIds) {
-            const available_dish = availableMenu.find(dish => dish["id"] === parseInt(id))
-            if (!available_dish || !available_dish["availability"]) {
-                const message = !available_dish ? "found" : "available"
-                return alert(`A dish with id:${id} not ${message}`)
-            }
-        }
+        // const availableMenu = JSON.parse("{{ menu | escapejs }}")
 
         const new_order = new FormData(e.target)
         const csrfTKN = new_order.get("csrfmiddlewaretoken")
+        const selected_ids = new_order.getAll("selected_ids")
+
+        if (selected_ids.length === 0) return alert("Please select atleast one item!")
 
         fetch(processOrderURL, {
             method: "POST",
