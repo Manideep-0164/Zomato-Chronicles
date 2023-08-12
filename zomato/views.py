@@ -43,7 +43,8 @@ def add_dish(request):
         price = request.POST.get("price")
         image = request.POST.get("image")
         availability = request.POST.get("availability") == "on"
-        id = len(zomatoDB["menu"]) + 1
+        max_id = max(dish["id"] for dish in zomatoDB["menu"])
+        id = int(max_id + 1)
         dish = {"id": id, "name": name, "price": price, "availability": availability, "image": image}
         zomatoDB["menu"].append(dish)
         return redirect("menu")
