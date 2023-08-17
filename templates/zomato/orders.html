@@ -35,8 +35,8 @@
                 <tr>
                     <td>{{ order.customer_name }}</td>
                     <td>
-                        {% for id in order.dishes %}
-                        {{ id.id }}{% if not forloop.last %}, {% endif %}
+                        {% for dish in order.dishes %}
+                        {{ dish.name }}{% if not forloop.last %}, {% endif %}
                         {% endfor %}
                     </td>
                     <td>{{ order.status }}</td>
